@@ -76,6 +76,41 @@ int main() {
       .map(move_into{swapchainPtr})
       .map_error([](auto error) { multi_logger::get()->critical("Error creating swapchain!"); exit(error); });
 
+    std::unique_ptr<descriptor_set_layout> set0LayoutPtr{};
+    descriptor_set_layout_builder{}
+      .storage_buffer(0, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
+      .build(*devicePtr)
+      .map(move_into{set0LayoutPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating set layout 0!"); });
+    
+    std::unique_ptr<descriptor_set_layout> set1LayoutPtr{};
+    descriptor_set_layout_builder{}
+      .storage_buffer(1, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
+      .build(*devicePtr)
+      .map(move_into{set1LayoutPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating set layout 1!"); });
+
+    std::unique_ptr<descriptor_set_layout> set2LayoutPtr{};
+    descriptor_set_layout_builder{}
+      .uniform_buffer(2, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
+      .build(*devicePtr)
+      .map(move_into{set2LayoutPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating set layout 2!"); });
+
+    std::unique_ptr<descriptor_set_layout> set3LayoutPtr{};
+    descriptor_set_layout_builder{}
+      .uniform_buffer(3, 1, VK_SHADER_STAGE_VERTEX_BIT)
+      .build(*devicePtr)
+      .map(move_into{set3LayoutPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating set layout 3!"); });
+
+    std::unique_ptr<descriptor_set_layout> set4LayoutPtr{};
+    descriptor_set_layout_builder{}
+      .uniform_buffer_dynamic(4, 1, VK_SHADER_STAGE_VERTEX_BIT)
+      .build(*devicePtr)
+      .map(move_into{set4LayoutPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating set layout 4!"); });
+
     std::unique_ptr<descriptor_pool> descriptorPoolPtr{};
     descriptor_pool_builder{}
       .add_layout(setLayoutPtr.get(), 3)
