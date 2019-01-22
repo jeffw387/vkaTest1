@@ -65,7 +65,8 @@ int main() {
       .add_queue_family(queueFamily)
       .build(*instancePtr)
       .map(move_into{devicePtr})
-      .map_error([](auto error) { multi_logger::get()->critical("Error selecting physical device!"); exit(error); });
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating device!"); exit(error); });
+    
     
     platform::window_should_close shouldClose{};
     while (!(shouldClose = platform::glfw::poll_os(*surfacePtr))) {
