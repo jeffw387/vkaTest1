@@ -76,6 +76,12 @@ int main() {
       .map(move_into{swapchainPtr})
       .map_error([](auto error) { multi_logger::get()->critical("Error creating swapchain!"); exit(error); });
 
+    std::unique_ptr<descriptor_pool> descriptorPoolPtr{};
+    descriptor_pool_builder{}
+      .add_layout(setLayoutPtr.get(), 3)
+      .build(*devicePtr)
+      .map(move_into{descriptorPoolPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating descriptor pool!"); exit(error); });
     platform::window_should_close shouldClose{};
     while (!(shouldClose = platform::glfw::poll_os(*surfacePtr))) {
       
