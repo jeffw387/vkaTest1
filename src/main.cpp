@@ -113,7 +113,11 @@ int main() {
 
     std::unique_ptr<descriptor_pool> descriptorPoolPtr{};
     descriptor_pool_builder{}
-      .add_layout(setLayoutPtr.get(), 3)
+      .add_layout(set0LayoutPtr.get(), 3)
+      .add_layout(set1LayoutPtr.get(), 3)
+      .add_layout(set2LayoutPtr.get(), 3)
+      .add_layout(set3LayoutPtr.get(), 3)
+      .add_layout(set4LayoutPtr.get(), 3)
       .build(*devicePtr)
       .map(move_into{descriptorPoolPtr})
       .map_error([](auto error) { multi_logger::get()->critical("Error creating descriptor pool!"); exit(error); });
