@@ -67,7 +67,15 @@ int main() {
       .map(move_into{devicePtr})
       .map_error([](auto error) { multi_logger::get()->critical("Error creating device!"); exit(error); });
     
-    
+    std::unique_ptr<swapchain> swapchainPtr{};
+    swapchain_builder{}
+      .image_count(3)
+      .present_mode(VK_PRESENT_MODE_FIFO_KHR)
+      .queue_family_index(queueFamily.familyIndex)
+      .build(physicalDevice, *surfacePtr, *devicePtr)
+      .map(move_into{swapchainPtr})
+      .map_error([](auto error) { multi_logger::get()->critical("Error creating swapchain!"); exit(error); });
+
     platform::window_should_close shouldClose{};
     while (!(shouldClose = platform::glfw::poll_os(*surfacePtr))) {
       
