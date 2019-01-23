@@ -12,7 +12,7 @@ class Vkatest1Conan(ConanFile):
     default_options = "shared=False"
     generators = "cmake"
     exports_sources = "!build/*", "*"
-    requires = "vkaEngine/0.0.1@jeffw387/testing"
+    requires = "vkaEngine/0.0.1@jeffw387/testing", "Catch2/2.5.0@catchorg/stable"
 
     def build(self):
         cmake = CMake(self)
