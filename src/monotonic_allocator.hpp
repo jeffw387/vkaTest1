@@ -78,6 +78,8 @@ bool operator==(monotonic_allocator<T>, monotonic_allocator<T>) noexcept;
 
 template <typename T>
 struct monotonic_allocator {
+  using value_type = T;
+
   monotonic_allocator(monotonic_memory* memoryResource)
   : m_memoryResource(memoryResource) {
   }
@@ -86,7 +88,7 @@ struct monotonic_allocator {
     return m_memoryResource->allocate<T>(n);
   }
 
-  void deallocate(T*) {};
+  void deallocate(T*, size_t n) {};
 
   void reset() {
     m_memoryResource->reset();

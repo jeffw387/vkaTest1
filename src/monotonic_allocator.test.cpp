@@ -1,5 +1,6 @@
 #include "monotonic_allocator.hpp"
 #include <catch2/catch.hpp>
+#include <vector>
 
 TEST_CASE("Create memory resource of size 1024") {
   REQUIRE_NOTHROW([]{ monotonic_memory memoryResource{1024}; }());
@@ -84,4 +85,15 @@ TEST_CASE("Two allocators of the same type referencing different memory resource
   monotonic_allocator<int32_t> alloc0{&memoryResource0};
   monotonic_allocator<int32_t> alloc1{&memoryResource1};
   REQUIRE(alloc0 != alloc1);
+}
+
+TEST_CASE("Allocate a vector's data from a monotonic allocator") {
+  monotonic_memory memoryResource{sizeof(int32_t) * 8};
+  monotonic_allocator<int32_t> alloc{&memoryResource};
+  std::vector<int32_t, monotonic_allocator<int32_t>> intVector{alloc};
+  REQUIRE_NOTHROW(intVector.reserve(8));
+  for (int i{}; i < 8; ++i) {
+    REQUIRE_NOTHROW(intVector.push_back(i));
+  }
+  REQUIRE_THROWS(intVector.push_back(8));
 }
