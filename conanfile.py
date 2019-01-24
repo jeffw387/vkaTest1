@@ -9,7 +9,7 @@ class Vkatest1Conan(ConanFile):
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     options = {"shared": [True, False]}
     default_options = "shared=False"
-    generators = "cmake"
+    generators = "cmake", "visual_studio"
     exports_sources = "!build/*", "*"
     requires = "tinygltf/2.0@jeffw387/testing", "filesystem/X.Y.Z@jeffw387/testing", "vkaEngine/0.0.1@jeffw387/testing", "Catch2/2.5.0@catchorg/stable"
 
