@@ -261,14 +261,11 @@ int main() {
 
   void* vertPtr{};
   vertexBuffer->map().map(move_into{vertPtr});
-  std::array<glm::vec3, 3> vertices{
-    glm::vec3{-0.5f, 0.5f, 0.f},
-    glm::vec3{0.5f, 0.5f, 0.f},
-    glm::vec3{0.f, -0.5f, 0.f}};
+  std::array<glm::vec3, 3> vertices{glm::vec3{-0.5f, 0.5f, 0.f},
+                                    glm::vec3{0.5f, 0.5f, 0.f},
+                                    glm::vec3{0.f, -0.5f, 0.f}};
   std::memcpy(
-    vertPtr,
-    reinterpret_cast<void*>(vertices.data()),
-    sizeof(glm::vec3) * 3);
+      vertPtr, reinterpret_cast<void*>(vertices.data()), sizeof(glm::vec3) * 3);
 
   std::unique_ptr<buffer> vertexColorBuffer{};
   buffer_builder{}
@@ -284,14 +281,13 @@ int main() {
       });
   void* colorArrayPtr{};
   vertexColorBuffer->map().map(move_into{colorArrayPtr});
-  std::array<glm::vec4, 3> vertexColors{
-    glm::vec4{1.f, 0.f, 0.f, 1.f},
-    glm::vec4{0.f, 1.f, 0.f, 1.f},
-    glm::vec4{0.f, 0.f, 1.f, 1.f}};
+  std::array<glm::vec4, 3> vertexColors{glm::vec4{1.f, 0.f, 0.f, 1.f},
+                                        glm::vec4{0.f, 1.f, 0.f, 1.f},
+                                        glm::vec4{0.f, 0.f, 1.f, 1.f}};
   std::memcpy(
-    colorArrayPtr, 
-    reinterpret_cast<void*>(vertexColors.data()), 
-    sizeof(glm::vec4)*3);
+      colorArrayPtr,
+      reinterpret_cast<void*>(vertexColors.data()),
+      sizeof(glm::vec4) * 3);
   // /** round n down to nearest multiple of m */
   // auto round_down = [](VkDeviceSize n, VkDeviceSize m) {
   //     return (m == 0) ? n : (n / m) * m;
@@ -375,7 +371,7 @@ int main() {
     VkFence vkFlushFence = *flushFence;
     vkWaitForFences(*devicePtr, 1, &vkFlushFence, true, ~uint64_t{});
   }
-  
+
   std::unique_ptr<fence> imageReady{};
   fence_builder{}.build(*devicePtr).map(move_into{imageReady});
 
@@ -402,16 +398,16 @@ int main() {
     swapBarrier.subresourceRange.levelCount = VK_REMAINING_MIP_LEVELS;
     swapBarrier.subresourceRange.layerCount = VK_REMAINING_ARRAY_LAYERS;
     vkCmdPipelineBarrier(
-          cmd,
-          VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
-          VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-          0,
-          0,
-          nullptr,
-          0,
-          nullptr,
-          1,
-          &swapBarrier);
+        cmd,
+        VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+        VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+        0,
+        0,
+        nullptr,
+        0,
+        nullptr,
+        1,
+        &swapBarrier);
 
     VkClearValue clearValue;
     clearValue.color = {0.f, 0.f, 0.f, 1.f};
@@ -458,7 +454,8 @@ int main() {
 
   auto submitDraw = [&](uint32_t imageIndex) {
     VkFence imageReadyFence = *imageReady;
-    std::vector<VkFence> fences = {*imageReady, *commandBufferExecuted[imageIndex]};
+    std::vector<VkFence> fences = {*imageReady,
+                                   *commandBufferExecuted[imageIndex]};
     vkWaitForFences(*devicePtr, 2, fences.data(), true, ~uint64_t{});
     vkResetFences(*devicePtr, 2, fences.data());
 
