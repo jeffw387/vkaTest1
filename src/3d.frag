@@ -29,16 +29,16 @@ struct Light {
   vec4 positionViewSpace;
 };
 
-layout (set = 0) readonly buffer Materials
+layout (set = 0, binding = 0) readonly buffer Materials
 {
   Material[] data;
 } materials;
 
-layout (set = 1) readonly buffer DynamicLights {
+layout (set = 1, binding = 1) readonly buffer DynamicLights {
   Light[] data;
 } dynamicLights;
 
-layout (set = 2) uniform LightUniform {
+layout (set = 2, binding = 2) uniform LightUniform {
   vec4 ambient;
   uint dynamicLightCount;
 } lightUniform;
