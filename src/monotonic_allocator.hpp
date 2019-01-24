@@ -17,9 +17,7 @@ struct monotonic_memory {
   monotonic_memory& operator=(const monotonic_memory&) = delete;
   monotonic_memory& operator=(monotonic_memory&&) = default;
 
-  ~monotonic_memory() {
-    free(m_memory);
-  }
+  ~monotonic_memory() { free(m_memory); }
 
   template <typename T>
   T* allocate(size_t n) {
@@ -35,24 +33,24 @@ struct monotonic_memory {
     return reinterpret_cast<T*>(result);
   }
 
-  void reset() {
-    m_freePtr = m_memory;
-  }
+  void reset() { m_freePtr = m_memory; }
+
 private:
   size_t m_size{};
   void* m_memory{};
   void* m_freePtr{};
 
   size_t distance_base_to_free() {
-    return reinterpret_cast<size_t>(m_freePtr) 
-      - reinterpret_cast<size_t>(m_memory);
+    return reinterpret_cast<size_t>(m_freePtr) -
+           reinterpret_cast<size_t>(m_memory);
   }
 
   void* next_aligned(std::size_t requiredAlignment) {
     size_t dist = distance_base_to_free();
-    size_t nextAligned = reinterpret_cast<size_t>(m_freePtr) + (dist % requiredAlignment);
-    return reinterpret_cast<void*>(std::min(nextAligned, 
-      reinterpret_cast<size_t>(end_pointer())));
+    size_t nextAligned =
+        reinterpret_cast<size_t>(m_freePtr) + (dist % requiredAlignment);
+    return reinterpret_cast<void*>(
+        std::min(nextAligned, reinterpret_cast<size_t>(end_pointer())));
   }
 
   bool can_allocate(size_t requiredSize) {
@@ -81,24 +79,23 @@ struct monotonic_allocator {
   using value_type = T;
 
   monotonic_allocator(monotonic_memory* memoryResource)
-  : m_memoryResource(memoryResource) {
-  }
+      : m_memoryResource(memoryResource) {}
 
-  T* allocate(size_t n) {
-    return m_memoryResource->allocate<T>(n);
-  }
+  T* allocate(size_t n) { return m_memoryResource->allocate<T>(n); }
 
-  void deallocate(T*, size_t n) {};
+  void deallocate(T*, size_t n){};
 
-  void reset() {
-    m_memoryResource->reset();
-  }
+  void reset() { m_memoryResource->reset(); }
   template <typename U>
   friend void swap(monotonic_allocator<U>, monotonic_allocator<U>) noexcept;
   template <typename U>
-  friend bool operator!=(monotonic_allocator<U>,monotonic_allocator<U>) noexcept;
+  friend bool operator!=(
+      monotonic_allocator<U>,
+      monotonic_allocator<U>) noexcept;
   template <typename U>
-  friend bool operator==(monotonic_allocator<U>,monotonic_allocator<U>) noexcept;
+  friend bool operator==(
+      monotonic_allocator<U>,
+      monotonic_allocator<U>) noexcept;
 
 private:
   monotonic_memory* m_memoryResource{};
@@ -110,11 +107,15 @@ void swap(monotonic_allocator<T> lhs, monotonic_allocator<T> rhs) noexcept {
 }
 
 template <typename T>
-bool operator!=(monotonic_allocator<T> lhs, monotonic_allocator<T> rhs) noexcept {
+bool operator!=(
+    monotonic_allocator<T> lhs,
+    monotonic_allocator<T> rhs) noexcept {
   return lhs.m_memoryResource != rhs.m_memoryResource;
 }
 
 template <typename T>
-bool operator==(monotonic_allocator<T> lhs, monotonic_allocator<T> rhs) noexcept {
+bool operator==(
+    monotonic_allocator<T> lhs,
+    monotonic_allocator<T> rhs) noexcept {
   return !(lhs != rhs);
 }
