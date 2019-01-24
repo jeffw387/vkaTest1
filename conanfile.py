@@ -1,6 +1,5 @@
 from conans import ConanFile, CMake
 
-
 class Vkatest1Conan(ConanFile):
     name = "vkaTest1"
     version = "0.0.1"
@@ -19,11 +18,6 @@ class Vkatest1Conan(ConanFile):
         cmake.verbose = True
         cmake.configure()
         cmake.build()
-
-        # Explicit way:
-        # self.run('cmake %s/hello %s'
-        #          % (self.source_folder, cmake.command_line))
-        # self.run("cmake --build . %s" % cmake.build_config)
 
     def package(self):
         self.copy("*.hpp", dst="include", src="src")
