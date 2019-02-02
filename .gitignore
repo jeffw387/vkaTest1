@@ -1,5 +1,6 @@
-build/
-
+build*/
 settings.json
 .vscode/c_cpp_properties.json
 .vscode/launch.json
+.vs/
+CMakeSettings.json
