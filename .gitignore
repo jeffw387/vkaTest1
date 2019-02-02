@@ -4,3 +4,4 @@ settings.json
 .vscode/launch.json
 .vs/
 CMakeSettings.json
+.vscode/tasks.json
