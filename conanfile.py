@@ -14,7 +14,7 @@ class Vkatest1Conan(ConanFile):
     requires = (
       "tinygltf/2.0@jeffw387/testing", 
       "filesystem/X.Y.Z@jeffw387/testing", 
-      "vkaEngine/0.0.1@jeffw387/testing", 
+      "vkaEngine/0.0.2@jeffw387/testing", 
       "Catch2/2.5.0@catchorg/stable",
       "json-shader/0.0.1@jeffw387/testing")
 
