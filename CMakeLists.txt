@@ -12,8 +12,9 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 
 conan_cmake_run(CONANFILE conanfile.py
                 BASIC_SETUP
-                PROFILE default
-                BUILD missing)
+                PROFILE_AUTO
+                BUILD missing
+                SETTINGS cppstd=17)
 
 add_subdirectory(src/shaders)
 
