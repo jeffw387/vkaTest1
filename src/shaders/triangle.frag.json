@@ -1,0 +1,25 @@
+{
+  "$schema": "http://jw387.com/schemas/shader-desc.schema.json",
+  "shader_stage": "Fragment",
+  "inputs": [
+    {
+      "input_name": "inColor",
+      "glsl_type": "vec4",
+      "location": 0
+    }
+  ],
+  "outputs": [
+    {
+      "output_name": "outColor",
+      "glsl_type": "vec4",
+      "location": 0
+    }
+  ],
+  "buffer_blocks": [],
+  "constants": [],
+  "images": [],
+  "input_attachments": [],
+  "push_constants": [],
+  "samplers": [],
+  "structures": []
+}
