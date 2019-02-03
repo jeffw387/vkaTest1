@@ -28,7 +28,7 @@
 #include <array>
 #include <vector>
 #include <move_into.hpp>
-#include <Logger.hpp>
+#include <logger.hpp>
 #include <glm/glm.hpp>
 #include <string>
 #include <tiny_gltf.h>

@@ -16,7 +16,7 @@ class Vkatest1Conan(ConanFile):
       "filesystem/X.Y.Z@jeffw387/testing", 
       "vkaEngine/0.0.2@jeffw387/testing", 
       "Catch2/2.5.0@catchorg/stable",
-      "json-shader/0.0.1@jeffw387/testing")
+      "json-shader/latest@jeffw387/testing")
 
     def build(self):
         cmake = CMake(self)
