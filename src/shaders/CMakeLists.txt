@@ -11,7 +11,7 @@ function(compile_shader shaderJson shaderGLSL)
     VERBATIM
     MAIN_DEPENDENCY ${inputJson}
     COMMENT "Generating ${outputGLSL}"
-    COMMAND ${CMAKE_BINARY_DIR}/bin/json-shader ${inputJson} ${inputGLSL} ${outputGLSL})
+    COMMAND json-shader ${inputJson} ${inputGLSL} ${outputGLSL})
   add_custom_command(
     OUTPUT ${outputSPV}
     VERBATIM
